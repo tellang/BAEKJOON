@@ -4,7 +4,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -27,20 +30,27 @@ public class Main {
 }
 class Dogam{
     private List<String> data;
+    private Map<String, Integer> map;
+    int index = 1;
     public Dogam(){
         data = new ArrayList<>();
         data.add("");
+        map = new HashMap<>();
     }
     public void add(String input){
         data.add(input);
+        map.put(input, index++);
     }
     public String getAnswer(String target){
-        if (Character.isDigit(target.toCharArray()[0]))
-            return getName(Integer.parseInt(target));
-        else return String.valueOf(getIndex(target));
+        try {
+            int num = Integer.parseInt(target);
+            return getName(num);
+        }catch (Exception e){
+            return String.valueOf(getIndex(target));
+        }
     }
     private int getIndex(String target){
-        return data.indexOf(target);
+        return map.get(target);
     }
     private String getName(int target){
         return data.get(target);
