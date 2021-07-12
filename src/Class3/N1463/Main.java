@@ -1,4 +1,4 @@
-package N1463;
+package Class3.N1463;
 
 import java.util.Scanner;
 
