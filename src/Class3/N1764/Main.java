@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.StringTokenizer;
+import java.util.TreeSet;
 
 public class Main {
 
@@ -15,6 +17,7 @@ public class Main {
         StringBuilder sb = new StringBuilder();
         sb.append('\n');
         Map<String, Integer> set = new HashMap<>();
+        Set<String> DBJSet = new TreeSet<>();
         int N = Integer.parseInt(st.nextToken());
         int M = Integer.parseInt(st.nextToken());
         int counter = 0;
@@ -25,8 +28,13 @@ public class Main {
             String target = br.readLine();
             if (set.containsKey(target)) {
                 counter++;
-                sb.append(target).append('\n');
+                DBJSet.add(target);
+
             }
+        }
+        for (var name:DBJSet
+        ) {
+            sb.append(name).append('\n');
         }
         sb.insert(0, counter);
         System.out.println(sb);
