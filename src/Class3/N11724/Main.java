@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
-import javax.swing.plaf.SplitPaneUI;
 
 public class Main {
     static int N;
@@ -25,33 +24,29 @@ public class Main {
             matrix[right][left] = true;
         }
         int result = 0;
-        int visitCount = 0;
         int visitIndex = 1;
         isVisit = new boolean[N+1];
         isVisit[0] = true;
         while (visitIndex != -1){
-            visitCount += BFS(matrix, visitIndex);
+            BFS(matrix, visitIndex);
             visitIndex = getUnvisitedVertex();
             result++;
         }
         System.out.println(result);
     }
-    public static int BFS(boolean[][] matrix, int start){
-        int visitCount = 0;
+    public static void BFS(boolean[][] matrix, int start){
         Queue<Integer> q = new LinkedList<>();
         q.add(start);
         while (!q.isEmpty()){
             int targetVertex = q.poll();
             if (!isVisit[targetVertex]){
                 isVisit[targetVertex] = true;
-                visitCount++;
                 for (int i = 0; i <= N; i++) {
                     if (matrix[targetVertex][i])
                         q.add(i);
                 }
             }
         }
-        return visitCount;
     }
     public static int getUnvisitedVertex(){
         for (int i = 0; i <= N; i++) {
