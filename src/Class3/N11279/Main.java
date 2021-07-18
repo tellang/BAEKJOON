@@ -14,7 +14,7 @@ public class Main {
         for (int i = 0; i < N; i++) {
             int num = Integer.parseInt(br.readLine());
             if (num==0)
-                sb.append(heap.getMax()).append('\n');
+                sb.append(heap.pop()).append('\n');
             else
                 heap.add(num);
         }
@@ -24,26 +24,33 @@ public class Main {
 class Heap{
     int[] data;
     int maxSize;
-    int nextIndex;
+    int next;
+    int head = 0;
     public Heap(int maxSize){
         this.maxSize = maxSize;
         data = new int[maxSize];
-        nextIndex = 0;
+        next = 0;
     }
     public void add(int num){
-        data[nextIndex] = num;
-        shiftUp(nextIndex++);
+        data[next] = num;
+        shiftUp(next++);
     }
-    public int getMax(){
-        int max = data[0];
-        data[0] = 0;
-        if (nextIndex==0)
+    public int pop(){
+        if (isEmpty())
             return 0;
-        swapData(0, nextIndex-1);
-        shiftDown(0);
-        nextIndex--;
+        int max = data[head];
+        data[head] = 0;
+        int min = next - 1;
+        swapData(head, min);
+        shiftDown(head);
+        next--;
         return max;
     }
+
+    private boolean isEmpty() {
+        return next ==0;
+    }
+
     private void shiftDown(int startIndex){
         if (startIndex==-1)
             return;
@@ -64,26 +71,38 @@ class Heap{
         data[bIndex] = temp;
     }
     private int swapToLargeChild(int parent){
-        int left = getLeftChildIndex(parent);
-        int right = getRightChildIndex(parent);
-        int maxChild;
-        if (data[left] > data[right])
-            maxChild = left;
-        else maxChild = right;
-        if (!hasChild(parent))
+        int maxChild = getMaxChildIndex(parent);
+        if (maxChild == -1)
             return -1;
+
         if (data[parent]<data[maxChild]) {
             swapData(maxChild, parent);
             return maxChild;
         }
         return -1;
     }
-    private boolean hasChild(int parent){
-        int left =getLeftChildIndex(parent);
-        int right = getRightChildIndex(parent);
 
-        return !(data[left]==0)&&(data[right] == 0);
+    private int getMaxChildIndex(int parent) {
+        int left = getLeftChildIndex(parent);
+        int right = getRightChildIndex(parent);
+        int maxChild;
+
+        if (right >= maxSize){
+            if (left >= maxSize)
+                return -1;
+            else
+                return left;
+        }
+
+        if (data[left] > data[right])
+            maxChild = left;
+        else if ((data[left] == data[right])&&(data[left] == 0))
+            maxChild = -1;
+        else
+            maxChild = right;
+        return maxChild;
     }
+
     private int getLeftChildIndex(int parent){
         return 2*(parent+1)-1;
     }
@@ -91,7 +110,7 @@ class Heap{
         return 2*(parent+1);
     }
     private int getParentIndex(int child){
-        if (child==0)
+        if (child== head)
             return -1;
         return (child-1)/2;
     }
