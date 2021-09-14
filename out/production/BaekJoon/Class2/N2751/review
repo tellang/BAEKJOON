@@ -1,0 +1,2 @@
+1. 문제를 잘 읽자; 절대값 이 단어 하나에 2일이 걸렸다
+2. 입력값이 많으면 Scanner 말고 BufferReader 와 StringBuilder 를 쓰자

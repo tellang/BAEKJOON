@@ -1,0 +1,2 @@
+1. stable sort엔 Colloections나 Lists의 sort가 있다
+2. value로 정렬해야 하는데 위의 방법이 여의치 않을땐 걍 value와 key를 바꿔보는것도 할만하다
