@@ -1,4 +1,4 @@
-package N13305;
+package ETC.N13305;
 import java.util.Scanner;
 
 public class Main {

@@ -1,4 +1,4 @@
-package N1237;
+package ETC.N1237;
 
 public class Main {
 
