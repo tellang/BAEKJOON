@@ -1,4 +1,4 @@
-package Class4.N1918;
+package Class4;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,44 +17,43 @@ public class Main {
 
     public static void getPostfix(String infix) {
         Stack<Character> stack = new Stack<>();
+        stack.push('(');
         Map<Character, Integer> level = new HashMap<>();
         level.put('(', -1);
         level.put('+', 0);
         level.put('-', 0);
         level.put('*', 1);
         level.put('/', 1);
-        level.put(')', 2);
 
         StringBuilder sb = new StringBuilder();
         for (var c : infix.toCharArray()) {
-            if ('A' <= c && c <= 'Z') {
-                sb.append(c);
+            if (c == ')') {
+                do {
+                    char opr = stack.pop();
+                    if (opr == '(') {
+                        break;
+                    } else {
+                        sb.append(opr);
+                    }
+                } while (!stack.isEmpty());
+            } else if ('*' <= c && c <= '/') {
+                while (level.get(stack.peek()) >= level.get(c)) {
+                    sb.append(stack.pop());
+                }
+                stack.push(c);
             } else {
                 if (c == '(')
                     stack.push(c);
-                else {
-                    if (stack.isEmpty())
-                        stack.push(c);
-                    else {
-                        if (level.get(stack.peek()) > level.get(c)) {
-                            popAll(stack, sb);
-                        }
-                        if (c != ')')
-                            stack.push(c);
-                    }
-                }
+                else
+                    sb.append(c);
             }
         }
-        if (!stack.isEmpty())
-            popAll(stack, sb);
-        System.out.println(sb);
-    }
-
-    private static void popAll(Stack<Character> stack, StringBuilder sb) {
-        do {
+        while (!stack.isEmpty()) {
             char opr = stack.pop();
-            if (opr != '(')
+            if (opr != '(') {
                 sb.append(opr);
-        } while (!stack.isEmpty());
+            }
+        }
+        System.out.println(sb);
     }
 }
