@@ -1,4 +1,4 @@
-package Class4;
+package Class4.N1918;
 
 import java.io.BufferedReader;
 import java.io.IOException;
