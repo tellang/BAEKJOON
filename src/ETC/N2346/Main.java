@@ -29,7 +29,6 @@ class Cueue {
         while (st.hasMoreTokens()) {
             balloons.add(new Balloon(++i, Integer.parseInt(st.nextToken())));
         }
-        System.out.println(balloons);
         drop();
     }
 
@@ -40,15 +39,12 @@ class Cueue {
             balloons.remove(presentIndex);
             if (presentIndex == (balloons.size())) {
                 presentIndex--;
-                if (presentBalloon.val < 0) {
-                    presentBalloon.val++;
-                }
+                presentBalloon.val++;
             }
             if (presentBalloon.val > 0)
                 presentIndex = calIndex(presentIndex, presentBalloon.val - 1);
             else
                 presentIndex = calIndex(presentIndex, presentBalloon.val);
-//
         }
         System.out.println(sb);
     }
